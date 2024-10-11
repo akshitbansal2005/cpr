@@ -1,15 +1,14 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "🗑️ Delete build dir",
+            "label": "Delete build directory",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/delete_build_dir.sh",
             "problemMatcher": [],
             "group": {
-                "kind": "build"
+                "kind": "clean", // Grouping this as a "clean" task rather than "build"
+                "isDefault": true
             },
             "presentation": {
                 "clear": true
@@ -19,7 +18,7 @@
             }
         },
         {
-            "label": "📝 Run clang-format",
+            "label": "Run clang-format",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/run_clang_format.sh",
             "args": [
@@ -29,7 +28,8 @@
             ],
             "problemMatcher": [],
             "group": {
-                "kind": "build"
+                "kind": "format", // Grouping as a "format" task for better task categorization
+                "isDefault": true
             },
             "presentation": {
                 "clear": true
@@ -39,7 +39,7 @@
             }
         },
         {
-            "label": "📑 Check clang-format",
+            "label": "Check clang-format",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/check_clang_format.sh",
             "args": [
@@ -47,9 +47,9 @@
                 "include",
                 "test"
             ],
-            "problemMatcher": [],
+            "problemMatcher": ["$gcc"], // Adding a generic problem matcher for format errors
             "group": {
-                "kind": "build"
+                "kind": "format"
             },
             "presentation": {
                 "clear": true
